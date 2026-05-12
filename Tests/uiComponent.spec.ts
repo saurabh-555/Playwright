@@ -16,14 +16,22 @@ test.describe("Form Layout page",()=>{
 
         //generic assertions
         const inputValue = await emailInput.inputValue()
-        await expect(inputValue).toEqual("saurabh")
+        expect(inputValue).toEqual("saurabh")
 
         //locator assertions
-        await expect(emailInput).toHaveValue("saurabh")
+        expect(emailInput).toHaveValue("saurabh")
     })
     test("Radio buttons",async({page})=>{
-        const Radio=page.locator('nb-card',{hasText:"Using the grid"}).getByLabel('Option 1')
-        await Radio.check({force:true})
-        await expect(Radio).toBeChecked()
+        const UsingTheGrid=page.locator('nb-card',{hasText:"Using the grid"})
+        await UsingTheGrid.getByLabel('Option 1').check({force:true})
+        await page.waitForTimeout(2000)
+        await UsingTheGrid.getByRole('radio',{name:'Option 2'}).check({force:true})
+
+        //validate state of radio buttons
+
+        const option1= await UsingTheGrid.getByLabel('Option 1').isChecked()
+        const option2= await UsingTheGrid.getByRole('radio',{name:'Option 2'}).isChecked()
+        expect(option1).toBeFalsy()
+        expect(option2).toBeTruthy()
     })
 })
