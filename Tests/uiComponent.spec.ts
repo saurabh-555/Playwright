@@ -76,3 +76,26 @@ test ("list and Dropdowns",async({page})=>{
         await expect(header).toHaveCSS("background-color",colors[colour])
     }
 })
+test ("tooltip",async({page})=>{
+    await page.getByText("Modal & Overlays").click()
+    await page.getByText("Tooltip").click()
+
+    const tooltip=page.locator("nb-card",({hasText:"Tooltip Placements"}))
+    await tooltip.getByRole("button",{name:"top"}).hover()
+
+    const tooltipText= await page.locator("nb-tooltip").textContent()
+    expect(tooltipText).toEqual("This is a tooltip")
+
+})
+test("dialogue-box",async({page})=>{
+    await page.getByText("Tables & data").click()
+    await page.getByText("smart table").click()
+
+    page.on('dialog',dialog=>{
+        expect(dialog.message()).toEqual;("Are you sure you want to delete?")
+        dialog.accept()
+    })
+    await page.getByRole("table").locator('tr',{hasText:"mdo@gmail.com"}).locator('.nb-trash').click()
+
+    await expect(page.locator("table tr").first()).not.toHaveText("mdo@gmail.com")
+})
