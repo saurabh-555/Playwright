@@ -1,28 +1,24 @@
 import {test,expect} from "@playwright/test"
-import {NavigationPage} from "../page-objects/navigationpage"
-import { formLayoutPage } from "../page-objects/formLayoutPage"
-import {datePickerPage} from "../page-objects/datePickerPage"
+import {PageManager} from "../page-objects/pageManager"
 
 test.beforeEach(async({page})=>{
     await page.goto("http://localhost:4200/")
 })
 
 test("Navigate to forms page",async({page})=>{
-    const navigateTo=new NavigationPage(page)
-    await navigateTo.navigateToFormsPage()
-    await navigateTo.navigateToDatePickerPage()
-    await navigateTo.navigateToSmartTablePage()
-    await navigateTo.navigateToTosterPage()
-    await navigateTo.navigateToTooltipPage()
+    const pm=new PageManager(page)
+    await pm.navigateTo().navigateToFormsPage()
+    await pm.navigateTo().navigateToDatePickerPage()
+    await pm.navigateTo().navigateToSmartTablePage()
+    await pm.navigateTo().navigateToTosterPage()
+    await pm.navigateTo().navigateToTooltipPage()
 })
 test('paramatarized methods', async({page})=>{
-    const navigateTo=new NavigationPage(page)
-    const onFormLayoutPage=new formLayoutPage(page)
-    const onDatePickerPage=new datePickerPage(page)
+    const pm=new PageManager(page)
 
-    await navigateTo.navigateToFormsPage()
-    await onFormLayoutPage.submitUsingTheGridFormWithCredentialsAndSelectOptions("saurabh@gamil.com,","saurabh","Option 2")
-    await onFormLayoutPage.submitInlineFormWithNameEmailAndCheckbox("Saurabh","saurabh@gamil.com",false)
-    await navigateTo.navigateToDatePickerPage()
-    await onDatePickerPage.selectCommonDatePickerDateFromToday(17)
+    await pm.navigateTo().navigateToFormsPage()
+    await pm.onFormLayoutPage().submitUsingTheGridFormWithCredentialsAndSelectOptions("saurabh@gamil.com,","saurabh","Option 2")
+    await pm.onFormLayoutPage().submitInlineFormWithNameEmailAndCheckbox("Saurabh","saurabh@gamil.com",false)
+    await pm.navigateTo().navigateToDatePickerPage()
+    await pm.onDatePickerPage().selectCommonDatePickerDateFromToday(17)
 })

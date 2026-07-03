@@ -1,10 +1,10 @@
 import { Page } from "@playwright/test";
+import { HelperBase } from "./helperBase";
 
-export class formLayoutPage{
-    private readonly page:Page
+export class FormLayoutPage extends HelperBase{
 
     constructor(page:Page){
-        this.page=page
+        super(page)
     }
     async submitUsingTheGridFormWithCredentialsAndSelectOptions(email:string,password:string,optionsTest:string){
         const usingTheGridForm=this.page.locator("nb-card", { hasText: "Using the Grid" })
