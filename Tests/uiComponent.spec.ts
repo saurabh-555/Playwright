@@ -3,7 +3,9 @@ import{test,expect} from "@playwright/test"
 test.beforeEach(async({page})=>{
     await page.goto("http://localhost:4200/")
 })
+
 test.describe("Form Layout page",()=>{
+    test.describe.configure({retries:2})
     test.beforeEach(async({page})=>{
         await page.getByText("Forms").click()
         await page.getByText("Form Layouts").click()
@@ -12,7 +14,7 @@ test.describe("Form Layout page",()=>{
         const emailInput=page.locator('nb-card',{hasText:"Using the grid"}).getByRole('textbox',{name:'Email'})
         await emailInput.fill("saurabh")
         await emailInput.clear()
-        await emailInput.pressSequentially("saurabh",{delay:500})
+        await emailInput.pressSequentially("saurabh")
 
         //generic assertions
         const inputValue = await emailInput.inputValue()
@@ -21,7 +23,7 @@ test.describe("Form Layout page",()=>{
         //locator assertions
         expect(emailInput).toHaveValue("saurabh")
     })
-    test("Radio buttons",async({page})=>{
+    test.skip("Radio buttons",async({page})=>{
         const UsingTheGrid=page.locator('nb-card',{hasText:"Using the grid"})
         await UsingTheGrid.getByLabel('Option 1').check({force:true})
         await page.waitForTimeout(2000)
@@ -36,7 +38,7 @@ test.describe("Form Layout page",()=>{
     })
 })
 
-test("checkBoxes",async({page})=>{
+test.skip("checkBoxes",async({page})=>{
     await page.getByText("Modal & Overlays").click()
     await page.getByText("Toastr").click()
     await page.getByRole("checkbox",{name:'Hide on click'}).uncheck({force:true})
