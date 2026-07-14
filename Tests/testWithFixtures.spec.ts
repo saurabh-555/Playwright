@@ -6,14 +6,7 @@ test.beforeEach(async({page})=>{
     await page.goto("/")
 })
 
-test("Navigate to forms page",async({page})=>{
-    const pm=new PageManager(page)
-    await pm.navigateTo().navigateToFormsPage()
-    await pm.navigateTo().navigateToDatePickerPage()
-    await pm.navigateTo().navigateToSmartTablePage()
-    await pm.navigateTo().navigateToTosterPage()
-    await pm.navigateTo().navigateToTooltipPage()
-})
+
 test('paramatarized methods', async({page})=>{
     const pm=new PageManager(page)
 
@@ -24,6 +17,4 @@ test('paramatarized methods', async({page})=>{
     await pm.onFormLayoutPage().submitUsingTheGridFormWithCredentialsAndSelectOptions(randomemail,randomfullname,"Option 2")
     await page.locator("nb-card", { hasText: "Inline form" }).screenshot({path:"screenshots/formsLayoutsPage.png"})
     await pm.onFormLayoutPage().submitInlineFormWithNameEmailAndCheckbox(randomfullname,randomemail,false)
-    // await pm.navigateTo().navigateToDatePickerPage()
-    // await pm.onDatePickerPage().selectCommonDatePickerDateFromToday(17)
 })

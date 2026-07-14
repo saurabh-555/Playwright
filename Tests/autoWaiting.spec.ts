@@ -30,7 +30,7 @@ test("Alternative Waits",async({page})=>{
     expect(text).toContain("Data loaded with AJAX get request.")
 })
 
-test('timeout',async({page})=>{
+test('timeout @smoke',async({page})=>{
     //test.setTimeout(12000)
     test.slow()
     const Button=page.locator(".bg-success")

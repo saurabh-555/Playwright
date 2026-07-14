@@ -9,6 +9,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "smoke": "npx playwright test --project=chromium --grep=\"@smoke\"",
     "PageObjects-chrome": "npx playwright test UsePOM.spec.ts --project=chromium",
     "PageObjects-firefox": "npx playwright test UsePOM.spec.ts --project=firefox",
     "PageObjects-all": "npx playwright test UsePOM.spec.ts --project=chromium & npx playwright test UsePOM.spec.ts --project=firefox"
@@ -71,6 +72,7 @@
     "@types/node": "^12.12.70",
     "codelyzer": "^0.0.28",
     "conventional-changelog-cli": "^2.2.2",
+    "dotenv": "^17.4.2",
     "npm-run-all": "4.0.2",
     "rimraf": "2.6.1",
     "stylelint": "^15.6.0",

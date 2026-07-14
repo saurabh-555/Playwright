@@ -1,7 +1,7 @@
 import{test,expect} from "@playwright/test"
 
 test.beforeEach(async({page})=>{
-    await page.goto("http://localhost:4200/")
+    await page.goto("/")
 })
 
 test.describe("Form Layout page",()=>{
@@ -23,7 +23,7 @@ test.describe("Form Layout page",()=>{
         //locator assertions
         expect(emailInput).toHaveValue("saurabh")
     })
-    test.skip("Radio buttons",async({page})=>{
+    test("Radio buttons",async({page})=>{
         const UsingTheGrid=page.locator('nb-card',{hasText:"Using the grid"})
         await UsingTheGrid.getByLabel('Option 1').check({force:true})
         await page.waitForTimeout(2000)
@@ -38,7 +38,7 @@ test.describe("Form Layout page",()=>{
     })
 })
 
-test.skip("checkBoxes",async({page})=>{
+test("checkBoxes",async({page})=>{
     await page.getByText("Modal & Overlays").click()
     await page.getByText("Toastr").click()
     await page.getByRole("checkbox",{name:'Hide on click'}).uncheck({force:true})
@@ -51,7 +51,7 @@ test.skip("checkBoxes",async({page})=>{
     }
 })
 
-test ("list and Dropdowns",async({page})=>{
+test ("list and Dropdowns @smoke",async({page})=>{
     const dropDown = page.locator("ngx-header nb-select")
     await dropDown.click()
     
