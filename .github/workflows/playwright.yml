@@ -19,6 +19,8 @@ jobs:
       run: npx playwright install --with-deps --force
     - name: Run Playwright tests
       run: npm run PageObjects-chrome
+      env:
+        ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
     - uses: actions/upload-artifact@v4
       if: ${{ !cancelled() }}
       with:
