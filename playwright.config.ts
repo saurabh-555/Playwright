@@ -18,8 +18,8 @@ export default defineConfig({
     [
       "@argos-ci/playwright/reporter",
       ({
-        // Upload to Argos on CI only.
-        uploadToArgos: !!process.env.CI,
+        // Upload to Argos on CI only when an Argos token is configured.
+        uploadToArgos: !!process.env.CI && !!process.env.ARGOS_TOKEN,
       }),
     ],
     ['json',{outputFile:'test-results/jsonReport.json'}],
