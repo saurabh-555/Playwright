@@ -1,4 +1,5 @@
 import { defineConfig, devices } from '@playwright/test';
+import { argosScreenshot } from "@argos-ci/playwright";
 
 export default defineConfig({
   //Global Scetion
@@ -13,12 +14,21 @@ export default defineConfig({
   
   retries: 1,
   reporter: [
+    process.env.CI ? ["dot"] : ["list"],
+    [
+      "@argos-ci/playwright/reporter",
+      ({
+        // Upload to Argos on CI only.
+        uploadToArgos: !!process.env.CI,
+      }),
+    ],
     ['json',{outputFile:'test-results/jsonReport.json'}],
     ['junit',{outputFile:'test-results/junitReport.xml'}],
     // ['allure-playwright'],
     ['html']
-          ],
+  ],
   use: {
+    screenshot: "only-on-failure",
     baseURL: 'http://localhost:4200/',
     trace: 'on-first-retry',
     navigationTimeout: 50000,
@@ -54,8 +64,8 @@ export default defineConfig({
       },
     }
   ],
-  webServer: {
-    command: 'npm run start',
-    url: 'http://localhost:4200/',
-  }
+  // webServer: {
+  //   command: 'npm run start',
+  //   url: 'http://localhost:4200/',
+  // }
 });
