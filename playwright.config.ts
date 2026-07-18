@@ -64,8 +64,8 @@ export default defineConfig({
       },
     }
   ],
-  // webServer: {
-  //   command: 'npm run start',
-  //   url: 'http://localhost:4200/',
-  // }
+  webServer: {
+    command: 'npm run start',
+    url: 'http://localhost:4200/',
+  }
 });
