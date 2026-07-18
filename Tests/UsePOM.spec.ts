@@ -27,3 +27,8 @@ test('paramatarized methods', async({page})=>{
     // await pm.navigateTo().navigateToDatePickerPage()
     // await pm.onDatePickerPage().selectCommonDatePickerDateFromToday(17)
 })
+test.only("Testing With Argos Ci ",async({page})=>{
+    const pm=new PageManager(page)
+    await pm.navigateTo().navigateToFormsPage()
+    await pm.navigateTo().navigateToDatePickerPage()
+})

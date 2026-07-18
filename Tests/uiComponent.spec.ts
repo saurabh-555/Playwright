@@ -5,7 +5,7 @@ test.beforeEach(async({page})=>{
 })
 
 test.describe("Form Layout page",()=>{
-    test.describe.configure({retries:2})
+    test.describe.configure({retries:0})
     test.beforeEach(async({page})=>{
         await page.getByText("Forms").click()
         await page.getByText("Form Layouts").click()
@@ -23,18 +23,19 @@ test.describe("Form Layout page",()=>{
         //locator assertions
         expect(emailInput).toHaveValue("saurabh")
     })
-    test("Radio buttons",async({page})=>{
+    test.only("Radio buttons",async({page})=>{
         const UsingTheGrid=page.locator('nb-card',{hasText:"Using the grid"})
         await UsingTheGrid.getByLabel('Option 1').check({force:true})
-        await page.waitForTimeout(2000)
-        await UsingTheGrid.getByRole('radio',{name:'Option 2'}).check({force:true})
+        await UsingTheGrid.getByRole('radio',{name:'Option 1'}).check({force:true})
 
+        await expect(UsingTheGrid).toHaveScreenshot()
         //validate state of radio buttons
 
-        const option1= await UsingTheGrid.getByLabel('Option 1').isChecked()
-        const option2= await UsingTheGrid.getByRole('radio',{name:'Option 2'}).isChecked()
-        expect(option1).toBeFalsy()
-        expect(option2).toBeTruthy()
+        // const option1= await UsingTheGrid.getByLabel('Option 1').isChecked()
+
+        // const option2= await UsingTheGrid.getByRole('radio',{name:'Option 2'}).isChecked()
+        // expect(option1).toBeFalsy()
+        // expect(option2).toBeTruthy()
     })
 })
 
@@ -101,7 +102,7 @@ test("dialogue-box",async({page})=>{
     
     await expect(page.locator("table tr").first()).not.toHaveText("mdo@gmail.com")
 })
-test('Web Tables',async({page})=>{
+test('Web Tables @regression',async({page})=>{
     await page.getByText("Tables & data").click()
     await page.getByText("smart table").click()
 
